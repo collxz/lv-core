@@ -1,0 +1,32 @@
+
+name: Integración Continua (CI) - LV API
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 1. Descargar codigo de Github
+      uses: actions/checkout@v4
+
+    - name: 2. Configurar .NET 8
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: 3. Restaurar dependencias de la Solución
+      run: dotnet restore
+
+    - name: 4. Compilar el proyecto
+      run: dotnet build -c Release --no-restore
+
+    - name: 5. Ejecutar Pruebas unitarias (xUnit)
+      run: dotnet test -c Release --no-build --verbosity normal
