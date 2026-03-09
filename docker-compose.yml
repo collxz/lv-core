@@ -1,0 +1,25 @@
+
+services:
+  # 1. Nuestro motor de Base de Datos
+  db-portafolios:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    platform: linux/amd64 # Emulacion para M3
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=SuperPassword_123!
+    ports:
+      - "1433:1433"
+
+  # 2. Nuestra API
+  api-portafolios:
+    build:
+      context: .
+      dockerfile: LarrainVial.Portafolios.Api/Dockerfile
+    ports:
+      - "8080:8080" # .NET 8 expone el puerto 8080 por defecto en Docker
+    environment:
+      # Sobreescribimos el appsettings.json
+      # Nota que el server ahora es el nombre del servicio de arriba!
+      - ConnectionStrings__DefaultConnection=Server=db-portafolios;Database=PortafoliosDb;User Id=sa;Password=SuperPassword_123!;TrustServerCertificate=True;
+    depends_on:
+      - db-portafolios

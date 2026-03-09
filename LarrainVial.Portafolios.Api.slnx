@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/Elementos de la solución/">
+    <File Path="docker-compose.yml" />
+  </Folder>
+  <Project Path="LarrainVial.Portafolios.Api/LarrainVial.Portafolios.Api.csproj" />
+  <Project Path="LarrainVial.Portafolios.Tests/LarrainVial.Portafolios.Tests.csproj" Id="2bbf4564-0261-4fd7-8805-40674ae24afa" />
+</Solution>
